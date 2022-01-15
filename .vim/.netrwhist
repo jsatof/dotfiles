@@ -1,0 +1,12 @@
+let g:netrw_dirhistmax  =10
+let g:netrw_dirhistcnt =2
+let g:netrw_dirhist_2='/media/hdd0/develop/barroom/me/jsfer/BarRoom.java'
+let g:netrw_dirhist_1='/media/hdd0/programs/slstatus'
+let g:netrw_dirhist_0='/media/hdd0/develop/inkscape/src'
+let g:netrw_dirhist_9='/media/hdd0/develop/BOTan'
+let g:netrw_dirhist_8='/media/hdd0/develop/BOTan/data'
+let g:netrw_dirhist_7='/media/hdd0/develop/BOTan'
+let g:netrw_dirhist_6='/media/hdd0/develop/BOTan/data'
+let g:netrw_dirhist_5='/media/hdd0/develop/BOTan'
+let g:netrw_dirhist_4='/etc/wireguard'
+let g:netrw_dirhist_3='/etc/modules-load.d'
