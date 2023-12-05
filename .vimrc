@@ -1,89 +1,67 @@
-call plug#begin('~/.vim/plugged')
-	Plug 'vim-airline/vim-airline'
-	Plug 'vim-airline/vim-airline-themes'
-	Plug 'justinmk/vim-syntax-extra'
-	Plug 'dylanaraps/wal.vim'
-        Plug 'ayu-theme/ayu-vim'
+call plug#begin()
+    Plug 'vim-airline/vim-airline'
+    Plug 'vim-airline/vim-airline-themes'
+
+    Plug 'sainnhe/gruvbox-material'
+    Plug 'w0ng/vim-hybrid'
+    Plug 'creasty/candle.vim'
+    Plug 'mattsacks/vim-eddie'
+    Plug 'alessandroyorba/alduin'
+    Plug 'loliee/vim-patatetoy'
+    Plug 'sblauen/chalk'
+    Plug 'axvr/raider.vim'
+
+    Plug 'prabirshrestha/asyncomplete.vim'
+    Plug 'preservim/tagbar'
+    Plug 'jiangmiao/auto-pairs'
 call plug#end()
 
-let g:airline_theme='tomorrow'
+let g:airline_theme='minimalist'
+
+colorscheme raider_fork
 
 set termguicolors
+set bg=dark
 
-colorscheme ayu
-
-set expandtab
-set shiftwidth=4
-set tabstop=8
-set softtabstop=4
-set fileencoding=utf-8
-set textwidth=99
-set showtabline=1
-
-set vb
-set hlsearch
 syntax on
 set number
-set bg=dark
+set cursorline
+set nowrap
+set incsearch
 set showmatch
-set ruler
-filetype plugin indent on
-set autoindent
+set hlsearch
+set ignorecase
+set showcmd
+set showmatch
 
-nnoremap <C-Left> :tabprevious<CR>
-nnoremap <C-Right> :tabnext<CR>
+" Enable vb then set the effect of vb to nothing
+set vb
+set t_vb=
+
+set autoindent
+filetype plugin indent on
+
+" INDENTATION: SPACES. Tab to 4 space characters
+" actual tab characters will appear their full length for clarity
+"set tabstop=8 softtabstop=0
+"set shiftwidth=4 smarttab
+"set expandtab
+
+" INDENTATION: TAB.
+set noexpandtab
+set copyindent
+set preserveindent
+set softtabstop=0
+set shiftwidth=4
+set tabstop=4
+
+" Remove auto comments, but without setting/unsetting the paste feature
+autocmd FileType * setlocal formatoptions-=c formatoptions-=r formatoptions-=o
+
 nnoremap <C-j> :tabprevious<CR>
 nnoremap <C-k> :tabnext<CR>
 
-inoremap " ""<left>
-inoremap ' ''<left>
-inoremap ( ()<left>
-inoremap [ []<left>
-inoremap { {}<left>
-inoremap {<CR> {<CR>}<ESC>O
-inoremap {;<CR> {<CR>};<ESC>O
+nnoremap <C-x> :vert :term<CR>
+nnoremap <C-b> :set syntax=whitespace<CR>
 
-noremap <F5> :call JavaInsertImport()<CR>
-function! JavaInsertImport()
-  exe "normal mz"
-  let cur_class = expand("<cword>")
-  try
-    if search('^\s*import\s.*\.' . cur_class . '\s*;') > 0
-      throw getline('.') . ": import already exist!"
-    endif
-    wincmd }
-    wincmd P
-    1
-    if search('^\s*public.*\s\%(class\|interface\)\s\+' . cur_class) > 0
-      1
-      if search('^\s*package\s') > 0
-        yank y
-      else
-        throw "Package definition not found!"
-      endif
-    else
-      throw cur_class . ": class not found!"
-    endif
-    wincmd p
-    normal! G
-    " insert after last import or in first line
-    if search('^\s*import\s', 'b') > 0
-      put y
-    else
-      1
-      put! y
-    endif
-    substitute/^\s*package/import/g
-    substitute/\s\+/ /g
-    exe "normal! 2ER." . cur_class . ";\<Esc>lD"
-  catch /.*/
-    echoerr v:exception
-  finally
-    " wipe preview window (from buffer list)
-    silent! wincmd P
-    if &previewwindow
-      bwipeout
-    endif
-    exe "normal! `z"
-  endtry
-endfunction
+nmap <F8> :TagbarToggle<CR>
